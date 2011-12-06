@@ -15,7 +15,7 @@ simple_search: http://google.com/search
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /jskswamy/atom.xml
+subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
@@ -28,7 +28,7 @@ email:
 root: /
 permalink: /blog/:year/:month/:day/:title/
 source: source
-destination: public/jskswamy
+destination: public
 plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
