@@ -4,7 +4,7 @@
 
 url: http://jskswamy.github.com
 title: Krishnaswamy Subramanian
-subtitle: gist on my random thoughts
+subtitle: Kirukkalgal - gist on my random thoughts
 author: Krishnaswamy Subramanian
 simple_search: http://google.com/search
 
@@ -88,8 +88,8 @@ delicious_user: jskswamy
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+disqus_short_name: jskswamy
+disqus_show_comment_count: true
 
 # Google Analytics
 google_analytics_tracking_id:
