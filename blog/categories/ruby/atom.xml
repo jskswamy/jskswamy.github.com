@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | Krishnaswamy Subramanian]]></title>
+  <link href="http://blog.krishnaswamy.in/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://blog.krishnaswamy.in/"/>
+  <updated>2013-04-14T10:28:03+05:30</updated>
+  <id>http://blog.krishnaswamy.in/</id>
+  <author>
+    <name><![CDATA[Krishnaswamy Subramanian]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby: Tap]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2012/03/04/ruby-tap/"/>
+    <updated>2012-03-04T23:30:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2012/03/04/ruby-tap</id>
+    <content type="html"><![CDATA[<p>When I first saw Ruby 1.9 new method Object#tap I slightly overlooked it and felt that this method may not be useful. But recently in one of my project I realized that how it can improve the reability of the code and avoids un-necessary return statements.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>student.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Student</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;attr_accessor :name, :age, :std</span>
+</span><span class='line'><span class="sr">def initialize name, age, std</span>
+</span><span class='line'><span class="sr">    @name, @age, @std = [name, age, std]</span>
+</span><span class='line'><span class="sr">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">def to_s</span>
+</span><span class='line'><span class="sr">    &quot;</span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="sr"> </span><span class="si">#{</span><span class="vi">@age</span><span class="si">}</span><span class="sr"> </span><span class="si">#{</span><span class="vi">@std</span><span class="si">}</span><span class="sr">&quot;</span>
+</span><span class='line'><span class="sr">end</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>If we want to print and return the student object after creating it, without tap the code will look like:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>without_tap.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;class StudentFactory&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create_student</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">student</span> <span class="o">=</span> <span class="no">Student</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+</span><span class='line'>    <span class="nb">p</span> <span class="n">student</span><span class="o">.</span><span class="n">to_s</span>
+</span><span class='line'>    <span class="n">student</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The same can be made more readable and prettier with the help of tap</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>with_tap.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">StudentFactory</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;def self.create_student(name, age, std)</span>
+</span><span class='line'><span class="sr">    Student.new(name, age, std).tap { |student| p student.to_s }</span>
+</span><span class='line'><span class="sr">end</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby: inject vs each with object]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2012/02/04/ruby-inject-vs-each-with-object/"/>
+    <updated>2012-02-04T14:21:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2012/02/04/ruby-inject-vs-each-with-object</id>
+    <content type="html"><![CDATA[<p>We all know that inject is very powerful when it comes to:
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>sum.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">].</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">sum</span><span class="p">,</span> <span class="n">n</span><span class="o">|</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">n</span> <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Simillary we can use it create a hash from an array
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>transform.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;using inject&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;[[</span><span class="ss">:tom</span><span class="p">,</span><span class="mi">25</span><span class="o">]</span><span class="p">,</span><span class="o">[</span><span class="ss">:jerry</span><span class="p">,</span><span class="mi">15</span><span class="o">]].</span><span class="n">inject</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">result</span><span class="p">,</span> <span class="n">name_and_age</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">name</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="n">name_and_age</span>
+</span><span class='line'>  <span class="n">result</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">age</span>
+</span><span class='line'>  <span class="n">result</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;=&gt; {:tom=&gt;25, :jerry=&gt;15}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Now, closely look at line number 5 we are returning the result from the block and this is passed on the enumerator for processing the next object in the array.</p>
+
+<p>We can avoid this extra return statement with the help of Enumerator.each_with_object
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>transform.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;using each_with_object&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;[[</span><span class="ss">:tom</span><span class="p">,</span><span class="mi">25</span><span class="o">]</span><span class="p">,</span><span class="o">[</span><span class="ss">:jerry</span><span class="p">,</span><span class="mi">15</span><span class="o">]].</span><span class="n">each_with_object</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">name_and_age</span><span class="p">,</span> <span class="n">result</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">name</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="n">name_and_age</span>
+</span><span class='line'>  <span class="n">result</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">age</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;=&gt; {:tom=&gt;25, :jerry=&gt;15}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

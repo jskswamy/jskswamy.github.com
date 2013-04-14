@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: misc | Krishnaswamy Subramanian]]></title>
+  <link href="http://blog.krishnaswamy.in/blog/categories/misc/atom.xml" rel="self"/>
+  <link href="http://blog.krishnaswamy.in/"/>
+  <updated>2013-04-14T10:28:03+05:30</updated>
+  <id>http://blog.krishnaswamy.in/</id>
+  <author>
+    <name><![CDATA[Krishnaswamy Subramanian]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Hello: Octopress]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2011/12/01/hello-octopress/"/>
+    <updated>2011-12-01T23:07:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2011/12/01/hello-octopress</id>
+    <content type="html"><![CDATA[<p>I am starting the blogging journey with a big thanks to <a href="http://brandonmathis.com" title="Brandon Mathis">Brandon Mathis</a> for his wonderfull blogging framework <a href="http://octopress.org" title="Octopress">Octopress</a> based on <a href="http://github.com/mojombo/jekyll" title="Jekyll">Jekyll</a></p>
+
+<p>What I liked more about this blogging framework is the <a href="http://en.wikipedia.org/wiki/KISS_principle" title="Keep it simple stupid!">KISS</a> principle. I can stick to my favourite text editor vim, it won't ask you unnecessary question on configuring the website. Everything will be up by few commands (Hmm... yes actually you might need some ruby based coding knowledge to start using this blogging framework). The framework is well documented as well</p>
+
+<p>Well.... thats it for now, will write more on how did I configured and installed Octopress for my personal needs.</p>
+]]></content>
+  </entry>
+  
+</feed>

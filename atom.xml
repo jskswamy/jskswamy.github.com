@@ -1,117 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>Krishnaswamy Subramanian</title>
-  <meta name="author" content="Krishnaswamy Subramanian">
-
-  
-  <meta name="description" content="When I first saw Ruby 1.9 new method Object#tap I slightly overlooked it and felt that this method may not be useful. But recently in one of my &hellip;">
-  
-
-  <!-- http://t.co/dKP3o1e -->
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="canonical" href="http://blog.krishnaswamy.in/">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  <link href="/atom.xml" rel="alternate" title="Krishnaswamy Subramanian" type="application/atom+xml">
-  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
-<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href="http://fonts.googleapis.com/css?family=Merienda:700" rel="stylesheet" type="text/css">
-
-  
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-27612282-1']);
-    _gaq.push(['_trackPageview']);
-
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-
-
-</head>
-
-<body>
-  <div id="navigation">
-    <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:blog.krishnaswamy.in" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-</ul>
-
-</nav>
-  </div>
-  <header role="banner"><hgroup>
-  <h1><a href="/">Krishnaswamy Subramanian</a></h1>
-  
-    <h2>Kirukkalgal - gist on my random thoughts</h2>
-  
-</hgroup>
-
-</header>
-  <div id="body"  >
-    <div id="main">
-      <div id="content">
-        <div class="blog-index">
-  
-  
-  
-    <article>
-      
-  <header>
+  <title><![CDATA[Krishnaswamy Subramanian]]></title>
+  <link href="http://blog.krishnaswamy.in/atom.xml" rel="self"/>
+  <link href="http://blog.krishnaswamy.in/"/>
+  <updated>2013-04-14T10:28:03+05:30</updated>
+  <id>http://blog.krishnaswamy.in/</id>
+  <author>
+    <name><![CDATA[Krishnaswamy Subramanian]]></name>
     
-      <h1 class="entry-title"><a href="/blog/2012/03/04/ruby-tap/">Ruby: Tap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
   
-
-
-<time datetime="2012-03-04T23:30:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/03/04/ruby-tap/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When I first saw Ruby 1.9 new method Object#tap I slightly overlooked it and felt that this method may not be useful. But recently in one of my project I realized that how it can improve the reability of the code and avoids un-necessary return statements.</p>
+  <entry>
+    <title type="html"><![CDATA[Ruby: Tap]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2012/03/04/ruby-tap/"/>
+    <updated>2012-03-04T23:30:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2012/03/04/ruby-tap</id>
+    <content type="html"><![CDATA[<p>When I first saw Ruby 1.9 new method Object#tap I slightly overlooked it and felt that this method may not be useful. But recently in one of my project I realized that how it can improve the reability of the code and avoids un-necessary return statements.</p>
 
 <figure class='code'><figcaption><span>student.rb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -172,44 +79,15 @@
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/">Rails: Restricting Many to Many Association in Rails</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-04T16:41:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Rails offers two different way to implement the many to many association, this post will guide you to choose the right association for your project need</p>
+  <entry>
+    <title type="html"><![CDATA[Rails: Restricting many to many association in rails]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/"/>
+    <updated>2012-03-04T16:41:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails</id>
+    <content type="html"><![CDATA[<p>Rails offers two different way to implement the many to many association, this post will guide you to choose the right association for your project need</p>
 
 <figure class='code'><figcaption><span>has_and_belongs_to_many.rb  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -366,44 +244,15 @@ This as well can be implemented in many ways but we (atleast I initally went wit
 
 
 <p>We don&#8217;t have to raise the exception by ourself rails will handle it gracefully.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/04/ruby-inject-vs-each-with-object/">Ruby: Inject vs Each With Object</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-02-04T14:21:00+05:30" pubdate data-updated="true">Feb 4<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/02/04/ruby-inject-vs-each-with-object/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>We all know that inject is very powerful when it comes to:</p>
+  <entry>
+    <title type="html"><![CDATA[Ruby: inject vs each with object]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2012/02/04/ruby-inject-vs-each-with-object/"/>
+    <updated>2012-02-04T14:21:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2012/02/04/ruby-inject-vs-each-with-object</id>
+    <content type="html"><![CDATA[<p>We all know that inject is very powerful when it comes to:</p>
 
 <figure class='code'><figcaption><span>sum.rb </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -454,217 +303,20 @@ This as well can be implemented in many ways but we (atleast I initally went wit
 </span><span class='line'><span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:tom</span><span class="o">=&gt;</span><span class="mi">25</span><span class="p">,</span> <span class="ss">:jerry</span><span class="o">=&gt;</span><span class="mi">15</span><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/01/hello-octopress/">Hello: Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-12-01T23:07:00+05:30" pubdate data-updated="true">Dec 1<span>st</span>, 2011</time>
-        
-         | <a href="/blog/2011/12/01/hello-octopress/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I am starting the blogging journey with a big thanks to <a href="http://brandonmathis.com" title="Brandon Mathis">Brandon Mathis</a> for his wonderfull blogging framework <a href="http://octopress.org" title="Octopress">Octopress</a> based on <a href="http://github.com/mojombo/jekyll" title="Jekyll">Jekyll</a></p>
+  <entry>
+    <title type="html"><![CDATA[Hello: Octopress]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2011/12/01/hello-octopress/"/>
+    <updated>2011-12-01T23:07:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2011/12/01/hello-octopress</id>
+    <content type="html"><![CDATA[<p>I am starting the blogging journey with a big thanks to <a href="http://brandonmathis.com" title="Brandon Mathis">Brandon Mathis</a> for his wonderfull blogging framework <a href="http://octopress.org" title="Octopress">Octopress</a> based on <a href="http://github.com/mojombo/jekyll" title="Jekyll">Jekyll</a></p>
 
 <p>What I liked more about this blogging framework is the <a href="http://en.wikipedia.org/wiki/KISS_principle" title="Keep it simple stupid!">KISS</a> principle. I can stick to my favourite text editor vim, it won&#8217;t ask you unnecessary question on configuring the website. Everything will be up by few commands (Hmm&#8230; yes actually you might need some ruby based coding knowledge to start using this blogging framework). The framework is well documented as well</p>
 
 <p>Well&#8230;. thats it for now, will write more on how did I configured and installed Octopress for my personal needs.</p>
-</div>
+]]></content>
+  </entry>
   
-  
-
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
-<aside class="sidebar">
-  
-    <section>
-  <h1><a href="http://about.me/jskswamy" target="blank">About</a></h1>
-  <div id="about">
-    <p>
-      I am a developer who is passionate about writing code. I mainly code web applications using frameworks like Ruby on Rails, Sinatra and ASP.NET etc.,
-    </p>
-    <p>
-      Otherwise I am trying to become a classical violinist
-    </p>
-  </div>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2012/03/04/ruby-tap/">Ruby: Tap</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/">Rails: Restricting many to many association in rails</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/02/04/ruby-inject-vs-each-with-object/">Ruby: inject vs each with object</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/12/01/hello-octopress/">Hello: Octopress</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/jskswamy">@jskswamy</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'jskswamy',
-            count: 5,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("jskswamy", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/jskswamy" class="twitter-follow-button" data-show-count="false">Follow @jskswamy</a>
-  
-</section>
-
-
-<section>
-  <h1>On Delicious</h1>
-  <div id="delicious"></div>
-  <script type="text/javascript" src="http://feeds.delicious.com/v2/json/jskswamy?count=3&amp;sort=date&amp;callback=renderDeliciousLinks"></script>
-  <p><a href="http://delicious.com/jskswamy">My Delicious Bookmarks &raquo;</a></p>
-</section>
-
-
-
-
-  
-</aside>
-
-      </div>
-    </div>
-    <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Krishnaswamy Subramanian -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
-</p>
-
-</footer>
-    
-
-<script type="text/javascript">
-      var disqus_shortname = 'blogkrishnaswamysin';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
-
-
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
-  <script type="text/javascript">
-    (function() {
-      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-      script.src = 'https://apis.google.com/js/plusone.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
-    })();
-  </script>
-
-
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+</feed>

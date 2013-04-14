@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Krishnaswamy Subramanian</title>
+  <title>Rails: Restricting many to many association in rails - Krishnaswamy Subramanian</title>
   <meta name="author" content="Krishnaswamy Subramanian">
 
   
-  <meta name="description" content="When I first saw Ruby 1.9 new method Object#tap I slightly overlooked it and felt that this method may not be useful. But recently in one of my &hellip;">
-  
+  <meta name="description" content="Rails offers two different way to implement the many to many association, this post will guide you to choose the right association for your project &hellip;">
+  <meta name="keywords" content="many_to_many has_and_belongs_to_many association rails ruby">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.krishnaswamy.in/">
+  <link rel="canonical" href="http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -78,113 +78,12 @@
   <div id="body"  >
     <div id="main">
       <div id="content">
-        <div class="blog-index">
+        <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/03/04/ruby-tap/">Ruby: Tap</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-03-04T23:30:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/03/04/ruby-tap/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>When I first saw Ruby 1.9 new method Object#tap I slightly overlooked it and felt that this method may not be useful. But recently in one of my project I realized that how it can improve the reability of the code and avoids un-necessary return statements.</p>
-
-<figure class='code'><figcaption><span>student.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Student</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:age</span><span class="p">,</span> <span class="ss">:std</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span> <span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span>
-</span><span class='line'>      <span class="vi">@name</span><span class="p">,</span> <span class="vi">@age</span><span class="p">,</span> <span class="vi">@std</span> <span class="o">=</span> <span class="o">[</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="o">]</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">to_s</span>
-</span><span class='line'>      <span class="s2">&quot;</span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="vi">@age</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="vi">@std</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If we want to print and return the student object after creating it, without tap the code will look like:</p>
-
-<figure class='code'><figcaption><span>without_tap.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">StudentFactory</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create_student</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">student</span> <span class="o">=</span> <span class="no">Student</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
-</span><span class='line'>      <span class="nb">p</span> <span class="n">student</span><span class="o">.</span><span class="n">to_s</span>
-</span><span class='line'>      <span class="n">student</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The same can be made more readable and prettier with the help of tap</p>
-
-<figure class='code'><figcaption><span>with_tap.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">StudentFactory</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create_student</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
-</span><span class='line'>      <span class="no">Student</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="o">|</span><span class="n">student</span><span class="o">|</span> <span class="nb">p</span> <span class="n">student</span><span class="o">.</span><span class="n">to_s</span> <span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/">Rails: Restricting Many to Many Association in Rails</a></h1>
+      <h1 class="entry-title">Rails: Restricting Many to Many Association in Rails</h1>
     
     
       <p class="meta">
@@ -202,14 +101,14 @@
 
 <time datetime="2012-03-04T16:41:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2012</time>
         
-         | <a href="/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>Rails offers two different way to implement the many to many association, this post will guide you to choose the right association for your project need</p>
+<div class="entry-content"><p>Rails offers two different way to implement the many to many association, this post will guide you to choose the right association for your project need</p>
 
 <figure class='code'><figcaption><span>has_and_belongs_to_many.rb  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -367,110 +266,16 @@ This as well can be implemented in many ways but we (atleast I initally went wit
 
 <p>We don&#8217;t have to raise the exception by ourself rails will handle it gracefully.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/02/04/ruby-inject-vs-each-with-object/">Ruby: Inject vs Each With Object</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Krishnaswamy Subramanian</span></span>
 
-<time datetime="2012-02-04T14:21:00+05:30" pubdate data-updated="true">Feb 4<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/02/04/ruby-inject-vs-each-with-object/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>We all know that inject is very powerful when it comes to:</p>
-
-<figure class='code'><figcaption><span>sum.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="o">].</span><span class="n">inject</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">sum</span><span class="p">,</span> <span class="n">n</span><span class="o">|</span> <span class="n">sum</span> <span class="o">+=</span> <span class="n">n</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Simillary we can use it create a hash from an array</p>
-
-<figure class='code'><figcaption><span>transform.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1">#using inject</span>
-</span><span class='line'><span class="o">[[</span><span class="ss">:tom</span><span class="p">,</span><span class="mi">25</span><span class="o">]</span><span class="p">,</span><span class="o">[</span><span class="ss">:jerry</span><span class="p">,</span><span class="mi">15</span><span class="o">]].</span><span class="n">inject</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">result</span><span class="p">,</span> <span class="n">name_and_age</span><span class="o">|</span>
-</span><span class='line'>  <span class="nb">name</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="n">name_and_age</span>
-</span><span class='line'>  <span class="n">result</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">age</span>
-</span><span class='line'>  <span class="n">result</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:tom</span><span class="o">=&gt;</span><span class="mi">25</span><span class="p">,</span> <span class="ss">:jerry</span><span class="o">=&gt;</span><span class="mi">15</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Now, closely look at line number 5 we are returning the result from the block and this is passed on the enumerator for processing the next object in the array.</p>
-
-<p>We can avoid this extra return statement with the help of Enumerator.each_with_object</p>
-
-<figure class='code'><figcaption><span>transform.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1">#using each_with_object</span>
-</span><span class='line'><span class="o">[[</span><span class="ss">:tom</span><span class="p">,</span><span class="mi">25</span><span class="o">]</span><span class="p">,</span><span class="o">[</span><span class="ss">:jerry</span><span class="p">,</span><span class="mi">15</span><span class="o">]].</span><span class="n">each_with_object</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">name_and_age</span><span class="p">,</span> <span class="n">result</span><span class="o">|</span>
-</span><span class='line'>  <span class="nb">name</span><span class="p">,</span> <span class="n">age</span> <span class="o">=</span> <span class="n">name_and_age</span>
-</span><span class='line'>  <span class="n">result</span><span class="o">[</span><span class="nb">name</span><span class="o">]</span> <span class="o">=</span> <span class="n">age</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">=&gt;</span> <span class="p">{</span><span class="ss">:tom</span><span class="o">=&gt;</span><span class="mi">25</span><span class="p">,</span> <span class="ss">:jerry</span><span class="o">=&gt;</span><span class="mi">15</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/12/01/hello-octopress/">Hello: Octopress</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -482,33 +287,50 @@ This as well can be implemented in many ways but we (atleast I initally went wit
   
 
 
-<time datetime="2011-12-01T23:07:00+05:30" pubdate data-updated="true">Dec 1<span>st</span>, 2011</time>
-        
-         | <a href="/blog/2011/12/01/hello-octopress/#disqus_thread">Comments</a>
-        
-      </p>
+<time datetime="2012-03-04T16:41:00+05:30" pubdate data-updated="true">Mar 4<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>rails</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>I am starting the blogging journey with a big thanks to <a href="http://brandonmathis.com" title="Brandon Mathis">Brandon Mathis</a> for his wonderfull blogging framework <a href="http://octopress.org" title="Octopress">Octopress</a> based on <a href="http://github.com/mojombo/jekyll" title="Jekyll">Jekyll</a></p>
-
-<p>What I liked more about this blogging framework is the <a href="http://en.wikipedia.org/wiki/KISS_principle" title="Keep it simple stupid!">KISS</a> principle. I can stick to my favourite text editor vim, it won&#8217;t ask you unnecessary question on configuring the website. Everything will be up by few commands (Hmm&#8230; yes actually you might need some ruby based coding knowledge to start using this blogging framework). The framework is well documented as well</p>
-
-<p>Well&#8230;. thats it for now, will write more on how did I configured and installed Octopress for my personal needs.</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/" data-via="jskswamy" data-counturl="http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/02/04/ruby-inject-vs-each-with-object/" title="Previous Post: Ruby: inject vs each with object">&laquo; Ruby: inject vs each with object</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/03/04/ruby-tap/" title="Next Post: Ruby: Tap">Ruby: Tap &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -548,7 +370,7 @@ This as well can be implemented in many ways but we (atleast I initally went wit
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/jskswamy">@jskswamy</a> on GitHub
@@ -578,7 +400,7 @@ This as well can be implemented in many ways but we (atleast I initally went wit
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -605,6 +427,7 @@ This as well can be implemented in many ways but we (atleast I initally went wit
   
 </aside>
 
+
       </div>
     </div>
     <footer role="contentinfo"><p>
@@ -619,7 +442,10 @@ This as well can be implemented in many ways but we (atleast I initally went wit
       var disqus_shortname = 'blogkrishnaswamysin';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/';
+        var disqus_url = 'http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://blog.krishnaswamy.in/blog/2011/12/01/hello-octopress/</loc>
+        <lastmod>2013-04-14T01:04:09+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.krishnaswamy.in/blog/2012/02/04/ruby-inject-vs-each-with-object/</loc>
+        <lastmod>2013-04-14T01:04:09+05:30</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/
+        </loc>
+        <lastmod>2013-04-14T01:04:09+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.krishnaswamy.in/blog/2012/03/04/ruby-tap/</loc>
+        <lastmod>2013-04-14T01:04:09+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.krishnaswamy.in/blog/archives/</loc>
+        <lastmod>2013-04-14T01:04:09+05:30</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.krishnaswamy.in/</loc>
+        <lastmod>2013-04-14T01:04:09+05:30</lastmod>
+    </url>
+</urlset>

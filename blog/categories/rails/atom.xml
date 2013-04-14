@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rails | Krishnaswamy Subramanian]]></title>
+  <link href="http://blog.krishnaswamy.in/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://blog.krishnaswamy.in/"/>
+  <updated>2013-04-14T10:28:03+05:30</updated>
+  <id>http://blog.krishnaswamy.in/</id>
+  <author>
+    <name><![CDATA[Krishnaswamy Subramanian]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rails: Restricting many to many association in rails]]></title>
+    <link href="http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails/"/>
+    <updated>2012-03-04T16:41:00+05:30</updated>
+    <id>http://blog.krishnaswamy.in/blog/2012/03/04/rails-restricting-many-to-many-association-in-rails</id>
+    <content type="html"><![CDATA[<p>Rails offers two different way to implement the many to many association, this post will guide you to choose the right association for your project need</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>has_and_belongs_to_many.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Post</span>
+</span><span class='line'>  <span class="n">has_and_many_belongs_to_many</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;class Comments</span>
+</span><span class='line'><span class="sr">  has_and_many_belongs_to_many :posts</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>has_many_through.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Post</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:commentables</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:commentables</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;class Comment</span>
+</span><span class='line'><span class="sr">  has_many :commentables</span>
+</span><span class='line'><span class="sr">  has_many :posts, :through =&gt; :commentables</span>
+</span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">class</span> <span class="nc">Commentable</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:post</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:comment</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In both approach, the intermediate table is going to hold the relation and also will yield the same result but when to choose what, still puzzled?</p>
+
+<p>Pointers to choose has_and_belongs_to_many. If you choose not to:</p>
+
+<ul>
+<li>Access the model which holds the relationship</li>
+<li>Have any validations for the association</li>
+<li>Read the associaton through the relationship</li>
+</ul>
+
+
+<p>To make it more clear, lets try to restrict the number of comments for a post.
+This as well can be implemented in many ways but we (atleast I initally went with this approach) naturally tend to add logic in Post class</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>post.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Post</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:commentables</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">:through</span> <span class="o">=&gt;</span> <span class="ss">:commentables</span><span class="p">,</span> <span class="ss">:before_add</span> <span class="o">=&gt;</span> <span class="ss">:check_comment_limit</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  private</span>
+</span><span class='line'><span class="sr">  def check_comment_limit(comment)&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>  <span class="c1">#If you want to stop comment getting added to post, you have to raise an error.</span>
+</span><span class='line'>  <span class="k">raise</span> <span class="s1">&#39;Comment limit reached&#39;</span> <span class="k">if</span> <span class="nb">self</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Another approach to tackle this is to add validation logic to the Comment class</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>comment.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Comment</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:commentables</span><span class="p">,</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:posts</span><span class="p">,</span> <span class="n">through</span> <span class="o">=&gt;</span> <span class="ss">:commentables</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  validate :check_comment_limit&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="kp">private</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">check_comment_limit</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;  comment_count = self.posts.comment.count</span>
+</span><span class='line'><span class="sr">  errors.add(:posts, &#39;Comment limit reached&#39;) if comment_count = 5</span>
+</span><span class='line'><span class="sr">  #If you want to stop comment getting added to post, you have to raise an error.</span>
+</span><span class='line'><span class="sr">  raise &#39;Comment limit reached&#39; if comment_count = 5</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>In both the approaches we have to raise an exception to prevent the comment from getting added to the post. I felt these approaches are not the conventional way of doing things, I went back and read the <a href="http://guides.rubyonrails.org/association_basics.html#choosing-between-has_many-through-and-has_and_belongs_to_many" title="rails guide on many to many association">rails guide on association</a> and rewrote the validation logic in the relation model which holds the association.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>commentable.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Commentable</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:post</span>
+</span><span class='line'>  <span class="n">belongs_to</span> <span class="ss">:comment</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  validate :check_comment_limit&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="kp">private</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">check_comment_limit</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;  comment_count = self.posts.comment.count</span>
+</span><span class='line'><span class="sr">  errors.add(:post, &#39;Comment limit reached&#39;) if comment_count = 5</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>We don't have to raise the exception by ourself rails will handle it gracefully.</p>
+]]></content>
+  </entry>
+  
+</feed>
